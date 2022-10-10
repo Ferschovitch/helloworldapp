@@ -5,6 +5,23 @@ class RegistrationsController < ApplicationController
     end
 
     def create
-        render plain: "Thanks"
+        @user = User.new(user_params)
+        if @user.save
+           # user id based on session, saved in DB
+           session[:user_id] = @user.id
+           # redirect to man page with notice
+           redirect_to root_path, notice: "Successfully created account"
+        else
+           
+           render :new    
+       end
+
     end
+
+    private
+
+    def user_params
+        params.require(:user).permit(:email, :password, :password_confirmation)
+    end
+
 end
