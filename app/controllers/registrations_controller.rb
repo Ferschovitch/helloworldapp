@@ -21,6 +21,7 @@ class RegistrationsController < ApplicationController
     private
 
     def user_params
+        # secure way to send params and only this params
         params.require(:user).permit(:email, :password, :password_confirmation)
     end
 
