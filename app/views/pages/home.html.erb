@@ -1,2 +1,23 @@
-<h1>Pages#home</h1>
+<h1>Welcome</h1>
 <p>Find me in app/views/pages/home.html.erb</p>
+
+<% if current_user %>
+    <p> Vitaj späť, <%= current_user.email %>!</p>
+    <p> Si úspešne prihlásený ako [<%= current_user.role %>]</p>
+
+    <% if current_user.admin?%>
+    <br>
+        Je registrovaných <%= User.count %> používateľov.
+    <br>
+    <% end %>
+    
+    <br>
+    <%= link_to "Odhlásenie", destroy_user_session_path, 'data-turbo-method': :delete %>
+
+<% else %>
+    <p> Nie si prihlásený!</p>
+    <%= link_to "Registrácia", new_user_registration_path %>
+    <%= link_to "Prihlásenie", new_user_session_path %>
+
+<% end %>
+
